@@ -12,3 +12,11 @@ addBtn.addEventListener('click', () => {
     input.value = "";
   }
 });
+
+
+
+// delete button
+const deleteBtn = document.createElement('button');
+deleteBtn.textContent = "Delete";
+deleteBtn.onclick = () => li.remove();
+li.appendChild(deleteBtn);
