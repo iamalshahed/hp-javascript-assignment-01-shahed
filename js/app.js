@@ -20,3 +20,25 @@ const deleteBtn = document.createElement('button');
 deleteBtn.textContent = "Delete";
 deleteBtn.onclick = () => li.remove();
 li.appendChild(deleteBtn);
+
+
+
+// edit and save button
+const editBtn = document.createElement('button');
+editBtn.textContent = "Edit";
+editBtn.onclick = () => {
+  const editInput = document.createElement('input');
+  editInput.value = li.firstChild.textContent;
+  li.innerHTML = '';
+  li.appendChild(editInput);
+
+  const saveBtn = document.createElement('button');
+  saveBtn.textContent = "Save";
+  saveBtn.onclick = () => {
+    li.textContent = editInput.value;
+    li.appendChild(editBtn);
+    li.appendChild(deleteBtn);
+  };
+
+  li.appendChild(saveBtn);
+};
