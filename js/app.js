@@ -1,44 +1,61 @@
-// Add To-Do Functionality
 const input = document.getElementById('todo-input');
 const addBtn = document.getElementById('add-btn');
 const todoList = document.getElementById('todo-list');
 
+// Add To-Do
 addBtn.addEventListener('click', () => {
   const text = input.value.trim();
   if (text !== "") {
-    const li = document.createElement('li');
-    li.textContent = text;
-    todoList.appendChild(li);
+    addTodoItem(text);
     input.value = "";
   }
 });
 
+function addTodoItem(text) {
+  const li = document.createElement('li');
+  li.className = "flex justify-between items-center bg-gray-200 px-4 py-2 rounded";
 
+  const span = document.createElement('span');
+  span.textContent = text;
 
-// delete button
-const deleteBtn = document.createElement('button');
-deleteBtn.textContent = "Delete";
-deleteBtn.onclick = () => li.remove();
-li.appendChild(deleteBtn);
+  const btns = document.createElement('div');
+  btns.className = "space-x-2";
 
+  const editBtn = document.createElement('button');
+  editBtn.textContent = "Edit";
+  editBtn.className = "text-yellow-600 hover:underline";
+  editBtn.onclick = () => editTodoItem(span, editBtn);
 
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = "Delete";
+  deleteBtn.className = "text-red-600 hover:underline";
+  deleteBtn.onclick = () => li.remove();
 
-// edit and save button
-const editBtn = document.createElement('button');
-editBtn.textContent = "Edit";
-editBtn.onclick = () => {
-  const editInput = document.createElement('input');
-  editInput.value = li.firstChild.textContent;
-  li.innerHTML = '';
-  li.appendChild(editInput);
+  btns.appendChild(editBtn);
+  btns.appendChild(deleteBtn);
 
-  const saveBtn = document.createElement('button');
-  saveBtn.textContent = "Save";
-  saveBtn.onclick = () => {
-    li.textContent = editInput.value;
-    li.appendChild(editBtn);
-    li.appendChild(deleteBtn);
+  li.appendChild(span);
+  li.appendChild(btns);
+
+  todoList.appendChild(li);
+}
+
+function editTodoItem(span, btn) {
+  const oldText = span.textContent;
+  const input = document.createElement('input');
+  input.value = oldText;
+  input.className = "border px-1 py-0.5 rounded w-full";
+
+  span.replaceWith(input);
+  btn.textContent = "Save";
+
+  btn.onclick = () => {
+    if (input.value.trim() !== "") {
+      const newSpan = document.createElement('span');
+      newSpan.textContent = input.value.trim();
+      input.replaceWith(newSpan);
+      btn.textContent = "Edit";
+      btn.onclick = () => editTodoItem(newSpan, btn);
+    }
   };
-
-  li.appendChild(saveBtn);
-};
+}
