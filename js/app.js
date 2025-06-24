@@ -21,14 +21,16 @@ function addTodoItem(text) {
   const btns = document.createElement('div');
   btns.className = "space-x-2";
 
+//   edit btn
   const editBtn = document.createElement('button');
   editBtn.textContent = "Edit";
-  editBtn.className = "text-yellow-600 hover:underline";
+  editBtn.className = "text-yellow-600 hover:underline cursor-pointer";
   editBtn.onclick = () => editTodoItem(span, editBtn);
 
+//   delete btn
   const deleteBtn = document.createElement('button');
   deleteBtn.textContent = "Delete";
-  deleteBtn.className = "text-red-600 hover:underline";
+  deleteBtn.className = "text-red-600 hover:underline cursor-pointer";
   deleteBtn.onclick = () => li.remove();
 
   btns.appendChild(editBtn);
